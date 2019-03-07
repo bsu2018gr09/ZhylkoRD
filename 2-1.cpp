@@ -1,4 +1,4 @@
-﻿/* В массиве А(N,M) переставить столбцы так, чтобы столбец с максимальной суммой элементов стал первым,
+/* В массиве А(N,M) переставить столбцы так, чтобы столбец с максимальной суммой элементов стал первым,
  а остальные столбцы расположить в порядке возрастания элементов первой строки.*/
 
 #include <iostream>
@@ -13,7 +13,7 @@ void outputArray(int **, int, int);
 void swapColumns(int **, int, int, int);
 void shuffleColumns(int **, int, int);
 int countSum(int **, int, int);
-void deleteMemory(int **&, int, int);
+void deleteMemory(int **&, int);
 
 int main() {
 	setlocale(LC_ALL, "RUSSIAN");
@@ -30,7 +30,7 @@ int main() {
 	initArrayRandom(A, N, M);
 	outputArray(A, N, M);
 	shuffleColumns(A, N, M);
-
+	deleteMemory(A, N);
 
 	system("pause");
 	return 0;
@@ -100,11 +100,11 @@ void shuffleColumns(int **A, int N, int M) {
 	outputArray(A, N, M);
 }
 
-void deleteMemory(int **&A, int N, int M) {
-	for (int i{ 0 }; ++i; i < M) {
+void deleteMemory(int **&A, int N) {
+	for (int i{ 0 }; i < N; ++i) {
 		delete[] * (A + i);
 		*(A + i) = nullptr;
 	}
-	delete A;
+	delete[] A;
 	A = nullptr;
 }
