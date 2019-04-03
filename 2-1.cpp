@@ -10,7 +10,7 @@ using namespace std;
 void giveMemoryToArray(int **&, int, int);
 void initArrayRandom(int **, int, int);
 void outputArray(int **, int, int);
-void swapColumns(int **, int, int, int);
+void swapColumns(int **, int, int);
 void shuffleColumns(int **, int, int);
 int countSum(int **, int, int);
 void deleteMemory(int **&, int);
@@ -67,10 +67,10 @@ int countSum(int **A, int col, int N) {
 	return sum;
 }
 
-void swapColumns(int **A, int col1, int col2, int N) {
-	for (int i{ 0 }; i < N; ++i) {
-		swap(A[i][col1], A[i][col2]);
-	}
+void swapColumns(int **A, int col1, int col2) {
+	int *tmp = *(A + col1);
+	*(A + col1) = *(A + col2);
+	*(A + col2) = tmp;
 }
 
 void shuffleColumns(int **A, int N, int M) {
@@ -85,14 +85,14 @@ void shuffleColumns(int **A, int N, int M) {
 	}
 
 	if (maxSumNumber != 0) {
-		swapColumns(A, 0, maxSumNumber, N);
+		swapColumns(A, 0, maxSumNumber);
 	}
 
 
 	for (i = 1; i < M - 1; ++i) {
 		for (j = 1; j < M - i; ++j) {
 			if (A[0][j] > A[0][j + 1]) {
-				swapColumns(A, j, j + 1, N);
+				swapColumns(A, j, j + 1);
 			}
 		}
 	}
