@@ -1,6 +1,7 @@
 ﻿#include"pch.h"
 #include<iostream> //где условие задачи? Какой градиент ты делаешь???
 #include<fstream> 
+//горизонтальный градиент
 using namespace std;
 struct color { unsigned char r; unsigned char g; unsigned char b; } c;
 
