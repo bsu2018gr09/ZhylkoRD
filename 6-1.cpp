@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Fraction {
+class Fraction {// а с отрицательными числами проверял???
 public:
 	Fraction() : Ent{ 0 }, Numrt{ 0 }, Dentr{ 1 } { cout << "constructor 0\n"; }
 	Fraction(int tmp1, int tmp2, int tmp3) : Ent{ tmp1 }, Numrt{ tmp2 }, Dentr{ tmp3 } {cout << "constructor 1\n"; };
@@ -24,9 +24,9 @@ public:
 	friend ostream& operator<<(ostream& os, Fraction const &t);
 	friend istream& operator>>(istream& is, Fraction &t);
 
-	void SetEnt(int tmp) { Ent = tmp; }
-	void SetNumrt(int tmp) { Numrt = tmp; }
-	void SetDentr(int tmp) { Dentr = tmp; }
+	void SetEnt(int tmp) { Ent = tmp; }// прям вот так? Без проверок?
+	void SetNumrt(int tmp) { Numrt = tmp; }// прям вот так? Без проверок?
+	void SetDentr(int tmp) { Dentr = tmp; }// прям вот так? Без проверок?
 	int GetEnt() { return Ent; }
 	int GetNumrt() { return Numrt; }
 	int GetDentr() { return Dentr; }
@@ -40,13 +40,13 @@ private:
 };
 
 int main()
-{
+{//pow не проверил
 	setlocale(LC_ALL, "Russian");
 	Fraction a{ 3,4,5 };
 	Fraction b{ 41,52,63 };
 	const Fraction e = 5;
-	Fraction d = b - a;
-	Fraction f = a / b;
+	Fraction d = b - a;//плюс не проверил, умножить не проверил, плюс и минус число не проверил
+	Fraction f = a / b;//деление на число не проверил
 	a = e;
 	cin >> f;
 	cout << e << "\n";
