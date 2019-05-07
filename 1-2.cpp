@@ -11,11 +11,11 @@ void printArray(int *, int);
 
 void deleteMemory(int *);
 
-void shiftPositive(int *, int);
+void shiftPositive(int *, int);//очень медленно. Никакой оптимизации ((
 
-void shiftArray(int *, int, int &);
+void shiftArray(int *, int, int &);//очень медленно. Никакой оптимизации ((
 
-void shiftNegative(int *, int, int &);
+void shiftNegative(int *, int, int &);//очень медленно. Никакой оптимизации ((
 
 int main() {
     srand(time(0));
