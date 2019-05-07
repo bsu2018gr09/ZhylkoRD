@@ -1,12 +1,12 @@
 ﻿#include <iostream>
-#include <string>
-
+#include <string>//это чо?????
+//Определить, сколько слов в строке состоит только из цифр. Вывести такие слова на экран и удалить после них следующее слово.
 using namespace std;
 const int maxLength{ 255 };
 const string stopSymbols = " -,.;";
 const string digits = "0123456789";
 void giveMemory(char *&);
-void deleteMemory(char *&);
+void deleteMemory(char *&);//что за название ((((
 int countDigitWords(char *);
 void deleteWord(char *&, int, int);
 int findStopSymbolId(char *, int);
@@ -32,7 +32,7 @@ void giveMemory(char *&str) {
 	}
 }
 
-void deleteMemory(char *&str) {
+void deleteMemory(char *&str) {//что за название ((((
 	delete[] str;
 	str = nullptr;
 }
@@ -105,7 +105,7 @@ bool isWordDigit(char *str, int start, int end) {
 	return isDigit;
 }
 
-void deleteWord(char*& str, int start, int end) {
+void deleteWord(char*& str, int start, int end) {//это чо?????
 	
 }
 
