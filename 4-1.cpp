@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const size_t N = 5000;
+const size_t N = 5000;// не больше, чем 5000 предложений в тексте?
 
 void readFile(char*, char**);
 void findEquals(char**, int);
@@ -53,7 +53,7 @@ void readFile(char* filename, char **A)
 
 		tmp = strtok(buffer, ".");
 		while (tmp != 0) {
-			A[cnt] = tmp;
+			A[cnt] = tmp;//О как?????? Копируем не строки, а указатели?????
 			++cnt;
 			tmp = strtok(0, ".");
 		}
