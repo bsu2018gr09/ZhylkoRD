@@ -7,10 +7,10 @@
 
 using namespace std;
 
-class Fraction {// а с отрицательными числами проверял???
+class Fraction {
 public:
 	Fraction() : Ent{ 0 }, Numrt{ 0 }, Dentr{ 1 } { cout << "constructor 0\n"; }
-	Fraction(int tmp1, int tmp2, int tmp3) : Ent{ tmp1 }, Numrt{ tmp2 }, Dentr{ tmp3 } {cout << "constructor 1\n"; };
+	Fraction(int tmp1, int tmp2, int tmp3) : Ent{ tmp1 }, Numrt{ tmp2 }, Dentr{ tmp3 } { toPrimary(); cout << "constructor 1\n"; };
 	Fraction(int tmp1) : Ent{ tmp1 }, Numrt{ 0 }, Dentr{ 1 } {cout << "constructor 2\n"; };
 	Fraction(Fraction const &tmp) : Ent{ tmp.Ent }, Numrt{ tmp.Numrt }, Dentr{ tmp.Dentr } { cout << "copy constructor 0\n"; };
 	const Fraction& operator=(Fraction const &t);
@@ -24,9 +24,9 @@ public:
 	friend ostream& operator<<(ostream& os, Fraction const &t);
 	friend istream& operator>>(istream& is, Fraction &t);
 
-	void SetEnt(int tmp) { Ent = tmp; }// прям вот так? Без проверок?
-	void SetNumrt(int tmp) { Numrt = tmp; }// прям вот так? Без проверок?
-	void SetDentr(int tmp) { Dentr = tmp; }// прям вот так? Без проверок?
+	void SetEnt(int tmp) { Ent = tmp; }
+	void SetNumrt(int tmp) { Numrt = tmp; }
+	void SetDentr(int tmp) { if (!tmp) Dentr = 1; }
 	int GetEnt() { return Ent; }
 	int GetNumrt() { return Numrt; }
 	int GetDentr() { return Dentr; }
@@ -37,22 +37,32 @@ private:
 	int Ent;
 	int Numrt;
 	int Dentr;
+	void toPrimary();
 };
 
 int main()
-{//pow не проверил
+{
 	setlocale(LC_ALL, "Russian");
 	Fraction a{ 3,4,5 };
-	Fraction b{ 41,52,63 };
+	Fraction b{ 4 };
+	Fraction c;
+	Fraction d{ -3,-4,-5 };
+	cout << a;
+	cout << b;
+	cout << c;
+	cout << d;
 	const Fraction e = 5;
-	Fraction d = b - a;//плюс не проверил, умножить не проверил, плюс и минус число не проверил
-	Fraction f = a / b;//деление на число не проверил
+	Fraction d = b - e;
+	Fraction f = b - 5;
+	d = c / 4;
+	f = b / a;
+	d = c * 3;
+	f = c * a;
+	d = a + 1;
+	f = d + b;
+	f.pow(f, 4);
 	a = e;
 	cin >> f;
-	cout << e << "\n";
-	cout << d << "\n";
-	cout << f << "\n";
-	cout << a << "\n";
 	system("pause");
 	return 0;
 }
@@ -126,4 +136,44 @@ ostream& operator<<(ostream& os, Fraction const &t) {
 istream& operator>>(istream& is, Fraction &t) {
 	is >> t.Ent >> t.Numrt >> t.Dentr;
 	return is;
+}
+
+void Fraction::toPrimary() {
+	if (Numrt < 0) {
+		if (Dentr < 0) { Numrt = -Numrt; Dentr = -Dentr; }
+		else if (Dentr > 0 && Ent > 0) {
+			Fraction tmp2{ Ent };
+			Fraction tmp{ Ent,abs(Numrt),abs(Dentr) };
+			tmp = tmp2 - tmp;
+			Ent = tmp.Ent;
+			Numrt = tmp.Numrt;
+			Dentr = tmp.Dentr;
+		}
+		else if (Dentr > 0 && Ent < 0) {
+			Fraction tmp2{ Ent };
+			Fraction tmp{ Ent,abs(Numrt),abs(Dentr) };
+			tmp = tmp2 + tmp;
+			Ent = tmp.Ent;
+			Numrt = tmp.Numrt;
+			Dentr = tmp.Dentr;
+		}
+	}
+	else if (Numrt > 0) {
+		if (Dentr < 0 && Ent > 0) {
+			Fraction tmp2{ Ent };
+			Fraction tmp{ Ent,abs(Numrt),abs(Dentr) };
+			tmp = tmp2 - tmp;
+			Ent = tmp.Ent;
+			Numrt = tmp.Numrt;
+			Dentr = tmp.Dentr;
+		}
+		else if (Dentr < 0 && Ent < 0) {
+			Fraction tmp2{ Ent };
+			Fraction tmp{ Ent,abs(Numrt),abs(Dentr) };
+			tmp = tmp2 + tmp;
+			Ent = tmp.Ent;
+			Numrt = tmp.Numrt;
+			Dentr = tmp.Dentr;
+		}
+	}
 }
