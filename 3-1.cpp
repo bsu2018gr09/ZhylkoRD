@@ -1,28 +1,26 @@
-﻿#include <iostream>
-#include <string>//это чо?????
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 //Определить, сколько слов в строке состоит только из цифр. Вывести такие слова на экран и удалить после них следующее слово.
 using namespace std;
 const int maxLength{ 255 };
-const string stopSymbols = " -,.;";
-const string digits = "0123456789";
+const char *stopSymbols = " -,.;";
+const char *digits = "0123456789";
 void giveMemory(char *&);
-void deleteMemory(char *&);//что за название ((((
+void freeMemory(char *&);
 int countDigitWords(char *);
-void deleteWord(char *&, int, int);
 int findStopSymbolId(char *, int);
 bool isWordDigit(char *, int, int);
 void printSubstring(char *, int, int);
-
+void subStr(char *, char *, int, int);
 
 int main() {
 	setlocale(LC_ALL, "Russian");
 	char *str = nullptr;
 	cout << "Enter string" << '\n';
-
 	giveMemory(str);
 	cin.getline(str, maxLength);
-	cout<<"Количество слов "<<countDigitWords(str);
-	deleteMemory(str);
+	cout << "Количество слов " << countDigitWords(str);
+	freeMemory(str);
 }
 
 void giveMemory(char *&str) {
@@ -32,7 +30,7 @@ void giveMemory(char *&str) {
 	}
 }
 
-void deleteMemory(char *&str) {//что за название ((((
+void freeMemory(char *&str) {
 	delete[] str;
 	str = nullptr;
 }
@@ -47,20 +45,36 @@ int countDigitWords(char *str) {
 	int start{ 0 };
 	int end = findStopSymbolId(str, 0);
 	int cnt{ 0 };
+	char *str2 = nullptr, *tmp = nullptr;
+	giveMemory(str2);
+	giveMemory(tmp);
+	strcpy(str2, "");
 	cout << "Слова, состоящие из цифр:\n";
-	while(end < maxLength&&end!=-1) {
+	while (end < maxLength&&end != -1) {
 		if (isWordDigit(str, start, end) == true) {
 			++cnt;
 			printSubstring(str, start, end);
+			subStr(str, tmp, start, end + 1);
+			strcat(str2, tmp);
 			cout << "\n";
 		}
 		start = end + 1;
 		end = findStopSymbolId(str, start);
 	}
 	if (cnt == 0) {
-		cout << "Нет слов";
+		cout << "Нет таких слов";
 	}
+	strcpy(str, str2);
+	cout << "Строка после удаления слов: " << str2 << "\n";
+	freeMemory(str2);
 	return cnt;
+}
+
+void subStr(char *s, char *rez, int begin, int end){
+	int cnt = end - begin;
+	s = s + begin;
+	strncpy(rez, s, cnt);
+	rez[cnt] = '\0';
 }
 
 int findStopSymbolId(char *str, int start) {
@@ -70,7 +84,7 @@ int findStopSymbolId(char *str, int start) {
 	while (!isFound&&start < maxLength) {
 		c = str[start];
 		for (i = 0; i < 5; ++i) {
-			if (c == stopSymbols[i]||c == '\0') {
+			if (c == stopSymbols[i] || c == '\0') {
 				isFound = true;
 				break;
 			}
@@ -104,8 +118,3 @@ bool isWordDigit(char *str, int start, int end) {
 	}
 	return isDigit;
 }
-
-void deleteWord(char*& str, int start, int end) {//это чо?????
-	
-}
-
