@@ -1,6 +1,7 @@
 #include"pch.h"
 #include<iostream> 
 #include<fstream> 
+//горизонтальный градиент
 using namespace std;
 struct color { unsigned char r; unsigned char g; unsigned char b; } c;
 
