@@ -1,3 +1,4 @@
+#include	"pch.h"
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 //Определить, сколько слов в строке состоит только из цифр. Вывести такие слова на экран и удалить после них следующее слово.
@@ -45,6 +46,7 @@ int countDigitWords(char *str) {
 	int start{ 0 };
 	int end = findStopSymbolId(str, 0);
 	int cnt{ 0 };
+	bool previous = false;
 	char *str2 = nullptr, *tmp = nullptr;
 	giveMemory(str2);
 	giveMemory(tmp);
@@ -54,23 +56,34 @@ int countDigitWords(char *str) {
 		if (isWordDigit(str, start, end) == true) {
 			++cnt;
 			printSubstring(str, start, end);
-			subStr(str, tmp, start, end + 1);
-			strcat(str2, tmp);
+			previous = true;
+			if (previous == true) {
+				subStr(str, tmp, start, end + 1);
+				strcat(str2, tmp);
+			}
 			cout << "\n";
+		}
+		else if(start!=end) {
+			if (previous == false) {
+				subStr(str, tmp, start, end + 1);
+				strcat(str2, tmp);
+			}
+			previous = false;
 		}
 		start = end + 1;
 		end = findStopSymbolId(str, start);
 	}
 	if (cnt == 0) {
-		cout << "Нет таких слов";
+		cout << "Нет таких слов\n";
 	}
-	strcpy(str, str2);
-	cout << "Строка после удаления слов: " << str2 << "\n";
+	if (cnt > 0)
+		strcpy(str, str2);
+	cout << "Строка после удаления слов: " << str << "\n";
 	freeMemory(str2);
 	return cnt;
 }
 
-void subStr(char *s, char *rez, int begin, int end){
+void subStr(char *s, char *rez, int begin, int end) {
 	int cnt = end - begin;
 	s = s + begin;
 	strncpy(rez, s, cnt);
@@ -103,6 +116,8 @@ bool isWordDigit(char *str, int start, int end) {
 	int i, j, cnt;
 	char c;
 	bool isDigit = true;
+	if (start == end)
+		return false;
 	for (i = start; i < end; ++i) {
 		c = str[i];
 		cnt = 0;
