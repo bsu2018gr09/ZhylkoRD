@@ -14,8 +14,8 @@ int main() {
 
 	char buf[30];
 	color c1, c2;
-	c1.r = 255, c1.g = 255, c1.b = 255;
-	c2.r = 0, c2.g = 0, c2.b = 0;
+	c1.r = 255, c1.g = 0, c1.b = 255;
+	c2.r = 0, c2.g = 256, c2.b = 100;
 	color c;
 	unsigned int w, h;
 	unsigned int move;
@@ -30,7 +30,7 @@ int main() {
 	w = 128;
 	ggg.write((char *)&w, 4); 
 	h = 256;
-	move = w / 1.5;
+	move = w / 1.5;//не работет при MOVE=256 !!!
 	ggg.write((char *)&h, 4);	
 	fff.read((char *)&buf, 28); 
 	ggg.write((char *)&buf, 28); 
