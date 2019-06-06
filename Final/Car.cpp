@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 char file[] = "D:\\aaa.txt";
 
@@ -50,7 +51,7 @@ void writeToFile(Car *arr, int n) {
 
 void printArray(Car *arr, int n) {
 	std::cout << "***********************************************\n";
-	std::cout << "*   Ìîäåëü | Âëàäåëåö |  Ãîä  |  Öåíà  | Öâåò *\n";
+	std::cout << "*   ÃŒÃ®Ã¤Ã¥Ã«Ã¼ | Ã‚Ã«Ã Ã¤Ã¥Ã«Ã¥Ã¶ |  ÃƒÃ®Ã¤  |  Ã–Ã¥Ã­Ã   | Ã–Ã¢Ã¥Ã² *\n";
 	std::cout << "***********************************************\n";
 	for (int i{ 0 }; i < n; ++i) {
 		std::cout << "* " << std::setw(8) << arr[i].GetModel() << " | " << std::setw(8) << arr[i].GetName() << " | " << std::setw(5) << arr[i].GetYear() << " | " << std::setw(6) << arr[i].GetCost() << " | " << std::setw(3) << arr[i].GetColor() << "  *\n";
