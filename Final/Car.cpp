@@ -14,7 +14,8 @@ Car* initArrayFromFile(int &count) {
 	int cnt{ 0 };
 	char *tmp = giveMemory<char>(200);
 	std::ifstream fff(file);
-
+	if(!fff)
+		return cnt;
 	while (1) {
 		fff >> tmp;
 		++cnt;
